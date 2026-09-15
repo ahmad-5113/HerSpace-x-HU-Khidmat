@@ -1,0 +1,115 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String   @id @default(uuid())
+  name              String
+  email             String   @unique
+  password_hash     String
+  role              String   @default("CONTENT_EDITOR") // SUPER_ADMIN, HR_MANAGER, CONTENT_EDITOR
+  is_email_verified Boolean  @default(false)
+  approval_status   String   @default("PENDING") // PENDING, APPROVED, REJECTED
+  is_active         Boolean  @default(false)
+  created_at        DateTime @default(now())
+  updated_at        DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Donation {
+  id             String   @id @default(uuid())
+  full_name      String
+  email          String
+  phone          String
+  amount         Float
+  currency       String   @default("PKR")
+  payment_method String?
+  payment_status String   @default("PENDING") // PENDING, COMPLETED, FAILED, REFUNDED
+  transaction_id String?  @unique
+  gateway_meta   String?  // JSON stringified metadata
+  created_at     DateTime @default(now())
+
+  @@map("donations")
+}
+
+model VolunteerApplication {
+  id             String   @id @default(uuid())
+  full_name      String
+  email          String
+  phone          String
+  city           String?
+  age            Int?
+  gender         String?  // Female, Male, Other
+  statement      String
+  status         String   @default("PENDING") // PENDING, REVIEWED, SHORTLISTED, ACCEPTED, REJECTED
+  reviewer_notes String?
+  created_at     DateTime @default(now())
+
+  @@map("volunteer_applications")
+}
+
+model Internship {
+  id             String                  @id @default(uuid())
+  title          String
+  slug           String                  @unique
+  description    String
+  location       String
+  workplace_type String                  // Remote, On-Site, Hybrid
+  duration       String
+  deadline       DateTime
+  is_active      Boolean                 @default(true)
+  created_at     DateTime                @default(now())
+  applications   InternshipApplication[]
+
+  @@map("internships")
+}
+
+model InternshipApplication {
+  id             String      @id @default(uuid())
+  internship_id  String?
+  internship     Internship? @relation(fields: [internship_id], references: [id], onDelete: SetNull)
+  role_title     String
+  full_name      String
+  email          String
+  phone          String
+  city           String?
+  age            Int?
+  gender         String?     // Female, Male, Other
+  cv_url         String
+  statement      String
+  status         String      @default("APPLIED") // APPLIED, UNDER_REVIEW, INTERVIEWED, ACCEPTED, REJECTED
+  reviewer_notes String?
+  created_at     DateTime    @default(now())
+
+  @@map("internship_applications")
+}
+
+model Blog {
+  id           String   @id @default(uuid())
+  title        String
+  slug         String   @unique
+  cover_image  String
+  body         String   // JSON stringified array or rich text
+  author_name  String   @default("HerSpace Team")
+  status       String   @default("PUBLISHED") // DRAFT, PUBLISHED, ARCHIVED
+  published_at DateTime @default(now())
+  created_at   DateTime @default(now())
+
+  @@map("blogs")
+}
+
+model NewsletterSubscriber {
+  id            String   @id @default(uuid())
+  email         String   @unique
+  is_active     Boolean  @default(true)
+  source        String   @default("FOOTER") // BANNER, FOOTER
+  subscribed_at DateTime @default(now())
+
+  @@map("newsletter_subscribers")
+}
