@@ -2,10 +2,16 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    min-width: 0;   
 }
 
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+html.no-scroll {
+    overflow: hidden;
 }
 
 body {
@@ -18,7 +24,8 @@ body {
 
 body.no-scroll {
     overflow: hidden;
-    height: 100vh;
+    
+
 }
 
 img {
@@ -142,6 +149,7 @@ nav.links a {
     color: #2B2140;
     cursor: pointer;
     transition: color 0.2s ease;
+    white-space: nowrap;
 }
 
 nav.links a:hover {
@@ -175,7 +183,7 @@ nav.links a:hover {
     background: #2B2140;
 }
 
-@media(max-width: 900px) {
+@media(max-width:1024px) {
     nav.links {
         display: none;
     }
@@ -192,20 +200,21 @@ nav.links a:hover {
 .drawer {
     position: fixed;
     top: 0;
-    right: -300px;
+    right: 0;
     width: 280px;
     max-width: 85vw;
     height: 100%;
     background: #fff;
     z-index: 400;
     box-shadow: -6px 0 24px #00000026;
-    transition: right 0.3s ease;
+    transform: translateX(100%);    
+    transition: transform 0.3s ease; 
     padding: 26px 22px;
     overflow-y: auto;
 }
 
 .drawer.open {
-    right: 0;
+    transform: translateX(0);
 }
 
 .drawer-close {
@@ -223,6 +232,8 @@ nav.links a:hover {
     color: #2B2140;
     border-bottom: 1px solid #f0eef5;
     cursor: pointer;
+    position: relative; 
+    z-index: 401;         
 }
 
 .drawer .btn {
@@ -264,7 +275,7 @@ nav.links a:hover {
 .hero {
     background: linear-gradient(135deg, #6F57A4 0%, #420071 100%);
     color: #fff;
-    padding: 60px 0 150px;
+    padding: 60px 0 152px;
     overflow: hidden;
 }
 
@@ -565,6 +576,10 @@ nav.links a:hover {
     gap: 40px;
 }
 
+.mission-card {
+    overflow: hidden;     
+}
+
 .mission-card h3 {
     font-size: 24px;
     font-weight: 800;
@@ -575,6 +590,8 @@ nav.links a:hover {
     color: #DDD0F2;
     font-size: 17px;
     margin-bottom: 20px;
+    word-wrap: break-word;      
+    overflow-wrap: break-word;  
 }
 
 .mission-card img {
@@ -852,6 +869,8 @@ nav.links a:hover {
     padding: 48px 40px;
     box-shadow: 0 6px 18px #42007112;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;              
+    flex-direction: column;     
 }
 
 .job-card:hover {
@@ -903,6 +922,7 @@ nav.links a:hover {
     font-size: 17px;
     color: #6B7280;
     margin-bottom: 18px;
+    flex-grow: 1;
 }
 
 .job-meta {
@@ -942,6 +962,7 @@ nav.links a:hover {
 
 .blogs {
     padding: 70px 0;
+    overflow: hidden;
 }
 
 .blogs .section-title {
@@ -1266,6 +1287,7 @@ footer ul li a:hover {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
+    overscroll-behavior: none;
 }
 
 .modal-card {
@@ -1449,19 +1471,885 @@ footer ul li a:hover {
     top: -5px;
     right: 10px;
 }
-/* ================= STICKY SCROLL TEXT (TEXT ONLY) ================= */
-/* Applies to text blocks in About Us, Our Approach, and Blogs sections only.
-   Images and layout are untouched. As the section scrolls through the
-   viewport, the text is continuously shifted upward relative to its
-   (visually static) image -- so while the image holds its position,
-   the text climbs up past it. Driven by scroll position in script.js. */
 
-.reveal-text {
-    will-change: transform;
+
+/* ===== RESPONSIVE: Large tablets / small laptops ===== */
+
+@media(max-width: 1024px) {
+    nav.links {
+      display: none;
+    }
+
+    .nav-inner {
+        padding: 2px 20px;
+    }
+
+    .hero-inner {
+        padding: 0 20px;
+    }
+
+    .about-grid {
+        gap: 40px;
+    }
+
+    .mission-grid {
+        gap: 30px;
+    }
+
+    .footer-grid {
+        gap: 50px;
+        padding: 0 20px;
+    }
+
+    .blog-row {
+        gap: 30px;
+    }
+
+    .blob-wrap {
+        height: 400px;
+    }
+
+    .blob-wrap .blob-img {
+        width: 380px;
+    }
+
+    .blob-wrap .photo {
+        width: 280px;
+        height: 260px;
+    }
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .reveal-text {
-        transform: none !important;
+
+/* ===== RESPONSIVE: Tablets ===== */
+
+@media(max-width: 900px) {
+    nav.links {
+        display: none;
     }
+
+    .logo img {
+        height: 88px;
+    }
+
+    .nav-right {
+        gap: 20px;
+    }
+
+    .hero-inner {
+        grid-template-columns: 1fr;
+        text-align: left;
+    }
+
+    .hero-img {
+        max-width: 480px;
+        margin: 0 auto;
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-photo-wrap {
+        margin-bottom: 10px;
+        max-width: 350px;
+    }
+
+    .thematic-grid {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+        margin: 40px auto 0;
+    }
+
+    .theme-card {
+        min-height: auto;
+        padding: 40px 24px;
+    }
+
+    .mission-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mission {
+        padding: 50px 0;
+    }
+
+    .mission-card {
+        text-align: center;
+    }
+
+    .mission-card img {
+        height: 280px;
+        margin: 0 auto;
+    }
+
+    .blog-row,
+    .blog-row.reverse {
+        grid-template-columns: 1fr;
+    }
+
+    .blog-row.reverse .blob-wrap,
+    .blog-row.reverse .blog-text {
+        order: unset;
+    }
+
+    .blob-wrap {
+        height: 380px;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+
+}    
+
+    .footer-grid {
+        grid-template-columns: 1.3fr 1fr 1fr 1.3fr;
+        gap: 30px;
+    }
+
+
+/* ===== RESPONSIVE: Small tablets / large phones ===== */
+
+@media(max-width: 768px) {
+    .hero {
+        padding: 40px 0 80px;
+    }
+
+    .hero h1 {
+        font-size: clamp(28px, 7vw, 40px);
+    }
+
+    .hero p {
+        font-size: 16px;
+        padding-bottom: 20px;
+    }
+
+    .about-strip {
+        aspect-ratio: auto;
+        min-height: 350px;
+        padding: 60px 16px;
+    }
+
+    .about-us {
+        padding: 50px 0;
+    }
+
+    .about-text h3 {
+        font-size: 22px;
+    }
+
+    .about-text p {
+        font-size: 15px;
+    }
+
+    .thematic {
+        padding: 80px 0;
+    }
+
+    .mission-card h3 {
+        font-size: 22px;
+    }
+
+    .mission-card p {
+        font-size: 15px;
+    }
+
+    .mission-card img {
+        height: 250px;
+    }
+
+    .approach {
+        height: auto;
+        padding: 80px 20px;
+        min-height: 400px;
+    }
+
+    .approach h2 {
+        font-size: clamp(24px, 5vw, 32px);
+    }
+
+    .approach p {
+        font-size: 14px;
+    }
+
+    .join {
+        padding: 80px 0;
+    }
+
+    .join img {
+        height: 300px;
+    }
+
+    .join h3 {
+        font-size: 24px;
+    }
+
+    .internships {
+        padding: 40px 0;
+    }
+
+    .job-grid {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .job-card {
+        padding: 32px 24px;
+    }
+
+    .job-card h4 {
+        font-size: 20px;
+    }
+
+    .job-card p {
+        font-size: 15px;
+    }
+
+    .job-card .btn {
+        padding: 14px;
+        font-size: 15px;
+    }
+
+    .blogs {
+        padding: 40px 0;
+    }
+
+    .blogs .section-title {
+        font-size: clamp(22px, 5vw, 30px);
+    }
+
+    .blog-text h4 {
+        font-size: 22px;
+    }
+
+    .blog-text p {
+        font-size: 15px;
+    }
+
+    .blob-wrap {
+        height: 320px;
+    }
+
+    .blob-wrap .blob-img {
+        width: 320px;
+    }
+
+    .blob-wrap .photo {
+        width: 240px;
+        height: 220px;
+    }
+
+    .newsletter h3 {
+        font-size: 20px;
+    }
+
+    .subscribe {
+        flex-direction: row;
+        border-radius: 30px;
+        gap: 0;
+        max-width: 440px;
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .subscribe input {
+        padding: 10px 16px;
+        text-align: left;
+        flex: 1;
+        min-width: 0;
+    }
+
+    .subscribe button {
+        width: auto;
+        padding: 10px 24px;
+        border-radius: 26px;
+        white-space: nowrap;
+    }
+}
+
+/*========== Responsivenesss ============== */
+
+/* ===== Phones ===== */
+
+@media(max-width: 480px) {
+    .nav-inner {
+        padding: 2px 16px;
+    }
+
+    .container {
+        padding: 0 16px;
+    }
+
+    .hero {
+        padding: 80px 0 70px;
+        overflow: visible;
+    }
+
+    .hero-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0;
+        gap: 30px;
+    }
+
+    .hero h1 {
+        font-size: clamp(28px, 9vw, 36px);
+        margin-bottom: 16px;
+        text-align: center;
+        padding: 0 20px;
+    }
+
+    .hero p {
+        font-size: 15px;
+        padding: 0 20px;
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .hero-img {
+        width: 200%;
+        max-width: none;
+        margin: 0 -50%;
+        padding: 0;
+        overflow: visible;
+        display: flex;
+        justify-content: center;
+        transform: scaleY(1.15);
+    }
+
+    .hero-img img {
+        width: 100%;
+        max-width: none;
+        height: auto;
+        display: block;
+        object-fit: contain;
+        transform: none;
+        margin: 0 -7.5%;
+    }
+
+    .about-strip {
+        min-height: 300px;
+        padding: 40px 16px;
+    }
+
+    .about-strip .content h2 {
+        font-size: 22px;
+    }
+
+    .about-strip p {
+        font-size: 13px;
+    }
+
+    .about-photo-wrap {
+        padding: 10px;
+    }
+
+    .about-photo-wrap img {
+        width: 100%;
+    }
+
+    .sdg-row img {
+        width: 48px;
+        height: 48px;
+    }
+
+    .mission-card h3 {
+        font-size: 20px;
+    }
+
+    .mission-card p {
+        font-size: 14px;
+    }
+
+    .mission-card img {
+        height: 200px;
+        border-width: 2px;
+    }
+
+    .supporters {
+        padding: 40px 0;
+    }
+
+    .supporters .section-title {
+        font-size: 20px;
+    }
+
+    .approach {
+        padding: 60px 16px;
+        min-height: 350px;
+    }
+
+    .approach .content {
+        padding: 0 10px;
+    }
+
+    .theme-card {
+        padding: 32px 20px;
+    }
+
+    .theme-card img {
+        width: 56px;
+        height: 56px;
+    }
+
+    .theme-card h4 {
+        font-size: 15px;
+    }
+
+    .theme-card p {
+        font-size: 12px;
+    }
+
+    .job-card {
+        padding: 28px 20px;
+    }
+
+    .job-tags {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .tag-pill {
+        font-size: 10px;
+        padding: 3px 10px;
+    }
+
+    .job-card h4 {
+        font-size: 18px;
+    }
+
+    .job-card p {
+        font-size: 14px;
+    }
+
+    .job-meta {
+        font-size: 12px;
+    }
+
+    .job-meta img {
+        width: 16px;
+        height: 16px;
+    }
+
+    .blog-row {
+        gap: 24px;
+        margin: 30px 0;
+    }
+
+    .blob-wrap {
+        height: 280px;
+    }
+
+    .blob-wrap .blob-img {
+        width: 280px;
+    }
+
+    .blob-wrap .photo {
+        width: 200px;
+        height: 180px;
+        border-width: 3px;
+    }
+
+    .asterisk-img,
+    .diamond-img {
+        width: 50px;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    footer h5 {
+        font-size: 16px;
+    }
+
+    footer p.desc {
+        font-size: 14px;
+    }
+
+    footer ul li {
+        font-size: 14px;
+    }
+
+    .social-row a {
+        width: 38px;
+        height: 38px;
+        font-size: 16px;
+    }
+
+    .modal-card {
+        padding: 24px;
+        margin: 10px;
+        max-height: 95vh;
+    }
+
+    .blog-img-frame {
+        height: 200px;
+    }
+
+    .row-2,
+    .row-3 {
+        grid-template-columns: 1fr;
+    }
+
+    .amount-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    .amount-grid button {
+        padding: 10px 8px;
+        font-size: 12px;
+    }
+
+    .form-card h4 {
+        font-size: 17px;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    /* mobile */
+    /* HERO SECTION*/
+
+    .hero-inner {
+        text-align: center;
+        padding: 0 20px;
+    }
+
+    .hero h1 {
+        text-align: center;
+        font-size: clamp(28px, 9vw, 36px);
+    }
+
+    .hero p {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 100%;
+    }
+
+    .hero-img {
+        max-width: none;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .hero-img img {
+        max-width: 140%;
+        width: 140%;
+        margin-left: -20%;
+        transform: scale(1.15);
+    }
+
+    /* === BLOGS ===*/
+
+    .blog-row {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin: 30px 0;
+    }
+
+    .blog-row .blog-text {
+        order: 2;
+        text-align: center;
+    }
+
+    .blog-row .blob-wrap {
+        order: 1;
+        height: 220px;
+        width: 100%;
+        max-width: none;
+    }
+
+    .blog-row .blob-wrap .blob-img {
+        width: 260px;
+    }
+
+    .blog-row .blob-wrap .photo {
+        width: 180px;
+        height: 160px;
+    }
+
+    .blog-row.reverse .blob-wrap {
+        order: 1;
+    }
+
+    .blog-row.reverse .blog-text {
+        order: 2;
+    }
+
+    .blog-text h4 {
+        font-size: 20px;
+        text-align: center;
+        display: block;
+        border-bottom: none;
+        padding-bottom: 0;
+        position: relative;
+    }
+
+    .blog-text h4::after {
+        content: '';
+        display: block;
+        width: 60px;
+        height: 3px;
+        background: #E9C251;
+        margin: 8px auto 0;
+    }
+
+    .blog-text p {
+        text-align: center;
+        max-width: 100%;
+        font-size: 14px;
+    }
+
+    .blog-text .btn {
+        margin: 0 auto;
+        display: inline-flex;
+    }
+
+    .modal-overlay {
+        align-items: flex-start;
+        padding-top: 40px;
+        padding-bottom: 40px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .modal-card {
+        max-height: none;
+        margin: 0 auto;
+        overflow-y: visible;
+    }
+
+    .modal-card::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .modal-card::-webkit-scrollbar-track {
+        background: #EDE6F7;
+        border-radius: 10px;
+    }
+
+    .modal-card::-webkit-scrollbar-thumb {
+        background: #6F57A4;
+        border-radius: 10px;
+    }
+
+
+    .modal-card {
+        scrollbar-width: thin;
+        scrollbar-color: #6F57A4 #EDE6F7;
+    }
+
+    .blog-modal-card {
+        max-height: none;
+        overflow-y: visible;
+    }
+
+   
+    .modal-overlay.show {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+
+/* ===== Small phones ===== */
+
+@media(max-width: 360px) {
+    .hero h1 {
+        font-size: 22px;
+    }
+
+    .btn {
+        padding: 12px 24px;
+        font-size: 15px;
+    }
+
+    .join img {
+        height: 220px;
+    }
+
+    .blob-wrap {
+        height: 240px;
+    }
+
+    .blob-wrap .photo {
+        width: 170px;
+        height: 150px;
+    }
+
+    .mission-card img {
+        height: 160px;
+    }
+}
+
+
+/* ====Landscape tablets ===== */
+
+@media(min-width: 1024px) and (max-width: 1280px) {
+    .nav-inner {
+        padding: 2px 24px;
+    }
+
+    nav.links {
+        gap: 40px;
+    }
+
+    .hero-inner {
+        gap: 20px;
+        padding: 0 40px;
+    }
+
+    .about-grid {
+        gap: 50px;
+    }
+
+    .thematic-grid {
+        gap: 20px;
+    }
+
+    .mission-grid {
+        gap: 30px;
+    }
+
+    .footer-grid {
+        gap: 60px;
+    }
+
+    .blog-row {
+        gap: 30px;
+    }
+
+    .blob-wrap {
+        height: 420px;
+    }
+
+    .blob-wrap .blob-img {
+        width: 400px;
+    }
+
+    .blob-wrap .photo {
+        width: 300px;
+        height: 280px;
+    }
+}
+
+
+/* ===== TABLET FIX===== */
+@media (min-width:768px) and (max-width:1024px) {
+    .logo img {
+        height: 90px;
+    }
+
+    .hero-inner {
+        grid-template-columns: 0.75fr 1.6fr;
+        text-align: left;
+        gap: 20px;
+    }
+
+    .hero-img {
+        max-width: 480px;
+        margin: 0 auto;
+    }
+
+    .about-grid {
+        grid-template-columns: 0.85fr 1.15fr;
+        gap: 30px;
+    }
+
+    .about-photo-wrap {
+        max-width: 320px;
+        margin: 0 auto 10px;
+    }
+
+    .thematic-grid {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: none;
+        gap: 18px;
+    }
+
+    .theme-card {
+        min-height: 260px;
+        padding: 32px 20px;
+    }
+
+    .mission-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .mission-card {
+        text-align: left;
+    }
+
+    .mission-card img {
+        height: 200px;
+        margin: 0;
+    }
+
+    .job-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        max-width: none;
+    }
+
+    .job-card {
+        padding: 28px 22px;
+        min-height: auto;
+    }
+
+    .job-card h4 {
+        font-size: 20px;
+        margin-bottom: 8px;
+    }
+
+    .job-card p {
+        font-size: 14px;
+        margin-bottom: 12px;
+    }
+
+    .job-card .btn {
+        padding: 12px;
+        font-size: 14px;
+        margin-top: 12px;
+    }
+
+    .blog-row,
+    .blog-row.reverse {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .blog-row.reverse .blob-wrap {
+        order: 1;
+    }
+
+    .blog-row.reverse .blog-text {
+        order: 2;
+    }
+
+    .blob-wrap {
+        height: 300px;
+        max-width: none;
+        margin: 0;
+    }
+
+    .blob-wrap .blob-img {
+        width: 280px;
+    }
+
+    .blob-wrap .photo {
+        width: 200px;
+        height: 190px;
+    }
+
+
 }
